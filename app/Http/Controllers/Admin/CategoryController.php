@@ -1,20 +1,22 @@
 <?php
 
-namespace App\Http\Controllers\Admin\ACL;
+namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
-use App\Models\Profile;
-use App\Http\Requests\StoreUpdateProfile;
+use App\Http\Requests\StoreUpdateCategory;
+use App\Models\Category;
 use Illuminate\Http\Request;
 
-class ProfileController extends Controller
+class CategoryController extends Controller
 {
-    protected $repository;
+ 
+    private $repository;
 
-    public function __construct(Profile $profile)
+    public function __construct(Category $category)
     {
-        $this->repository = $profile;
+        $this->repository = $category;
     }
+
     /**
      * Display a listing of the resource.
      *
@@ -22,9 +24,8 @@ class ProfileController extends Controller
      */
     public function index()
     {
-        $profiles = $this->repository->paginate();
-
-        return view('admin.pages.profiles.index', compact('profiles'));
+        $categories = $this->repository->paginate();
+        return view('admin.pages.categories.index', compact('categories'));
     }
 
     /**
@@ -34,20 +35,20 @@ class ProfileController extends Controller
      */
     public function create()
     {
-        return view('admin.pages.profiles.create');
+        return view('admin.pages.categories.create');
     }
 
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \App\Http\Requests\StoreUpdateProfile  $request
+     * @param  \App\Http\Requests\StoreUpdateCategory  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(StoreUpdateProfile $request)
+    public function store(StoreUpdateCategory $request)
     {
-        $this->repository->create( $request->all() );
-        
-        return redirect()->route('profiles.index');
+        $this->repository->create($request->all());
+
+        return redirect()->route('categories.index');
     }
 
     /**
@@ -58,12 +59,11 @@ class ProfileController extends Controller
      */
     public function show($id)
     {
-        $profile = $this->repository->find($id);
-
-        if(!$profile)
+        $category = $this->repository->find($id);
+        if(!$category){
             return redirect()->back();
-        
-        return view('admin.pages.profiles.show', compact('profile'));
+        }
+        return view('admin.pages.categories.show', compact('category'));
     }
 
     /**
@@ -73,34 +73,31 @@ class ProfileController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function edit($id)
-    {        
-        $profile = $this->repository->find($id);
-        
-        if(!$profile){
+    {
+        $category = $this->repository->find($id);
+        if(!$category){
             return redirect()->back();
         }
-
-            return view('admin.pages.profiles.edit', compact('profile'));
+        return view('admin.pages.categories.edit', compact('category'));
     }
 
     /**
      * Update the specified resource in storage.
      *
-     * @param  \App\Http\Requests\StoreUpdateProfile  $request
+     * @param  \App\Http\Requests\StoreUpdateCategory  $request
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(StoreUpdateProfile $request, $id)
+    public function update(StoreUpdateCategory $request, $id)
     {
-        $profile = $this->repository->find($id);
-        
-        if(!$profile){
+        $category = $this->repository->find($id);
+        if(!$category){
             return redirect()->back();
         }
 
-        $profile->update( $request->all() );
-        
-        return redirect()->route('profiles.index');
+        $category->update( $request->all() );
+
+        return redirect()->route('categories.index');
     }
 
     /**
@@ -111,32 +108,31 @@ class ProfileController extends Controller
      */
     public function destroy($id)
     {
-        $profile = $this->repository->find($id);
-        
-        if(!$profile)
+        $category = $this->repository->find($id);
+        if(!$category){
             return redirect()->back();
+        }
 
-        $profile->delete();
+        $category->delete();
 
-        return redirect()->route('profiles.index');
+        return redirect()->route('categories.index');
     }
 
-    /**
-     * Filter
-     */
     public function search(Request $request)
     {
+        
         $filters = $request->only('filter');
 
-        $profiles = $this->repository
+        $categories = $this->repository
                             ->where(function($query) use ($request){
                                 if($request->filter){
                                     $query->where('name', 'like', "%{$request->filter}%");
                                     $query->orWhere('description', 'like', "%{$request->filter}%");
                                 }
                             })
+                            ->latest()
                             ->paginate();
 
-        return view('admin.pages.profiles.index', compact('profiles', 'filters'));
+        return view('admin.pages.categories.index', compact('categories', 'filters'));
     }
 }

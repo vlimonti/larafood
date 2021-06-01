@@ -104,6 +104,4 @@ class PlanController extends Controller
 
         return redirect()->route('plans.index');
     }
-
-
 }
