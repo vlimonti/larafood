@@ -15,6 +15,7 @@ class PlanProfileController extends Controller
     {
         $this->profile  = $profile;
         $this->plan     = $plan;
+        $this->middleware(['can:plans']);
     }
 
     

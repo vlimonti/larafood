@@ -1,10 +1,11 @@
 <?php
 
+
 Route::prefix('admin')
         ->namespace('Admin')
         ->middleware('auth')
-        ->group(function(){
-
+        ->group(function() {
+        
     /**
      * Route Product x Category
     */
