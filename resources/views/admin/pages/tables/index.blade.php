@@ -1,19 +1,19 @@
 @extends('adminlte::page')
 
-@section('title', 'Usuários')
+@section('title', 'Mesas')
 
 @section('content_header')
     <ol class="breadcrumb">
         <li class="breadcrumb-item"><a href="{{ route('admin.index') }}">Dashboard</a></li>
-        <li class="breadcrumb-item active"><a href="{{ route('users.index') }}">Usuários</a></li>
+        <li class="breadcrumb-item active"><a href="{{ route('tables.index') }}">Mesas</a></li>
     </ol>
-    <h1>Usuários <a href="{{ route('users.create') }}" class="btn btn-dark">ADD <i class="fas fa-plus"></i></a></h1>    
+    <h1>Mesas <a href="{{ route('tables.create') }}" class="btn btn-dark">ADD <i class="fas fa-plus"></i></a></h1>    
 @stop
 
 @section('content')
     <div class="card">
         <div class="card-header">
-            <form action="{{ route('users.search') }}" method="POST" class="form form-inline">
+            <form action="{{ route('tables.search') }}" method="POST" class="form form-inline">
                 @csrf
                 <input type="text" name="filter" placeholder="Filtro" class="form-control" value="{{ $filters['filter'] ?? '' }}">
                 <button type="submit" class="btn btn-dark"><i class="fas fa-search"></i></button>
@@ -23,24 +23,23 @@
             <table class="table table-condensed">
                 <thead>
                     <tr>
-                        <th>Nome</th>
-                        <th>Email</th>
+                        <th>Identify</th>
+                        <th>Descrição</th>
                         <th width=250>Ações</th>
                     </tr>
                 </thead>
                 <tbody>
-                    @foreach($users as $user)
+                    @foreach($tables as $table)
                         <tr>
                             <td>
-                                {{ $user->name }}
+                                {{ $table->identify }}
                             </td>
                             <td>
-                                {{ $user->email }}
+                                {{ $table->description }}
                             </td>
                             <td style="width=10px;">
-                                <a href="{{ route('users.edit', $user->id) }}" class="btn btn-info">Edit</a>
-                                <a href="{{ route('users.show', $user->id) }}" class="btn btn-warning">Ver</a>
-                                <a href="{{ route('users.roles', $user->id) }}" class="btn btn-info" title="Funções"><i class="fas fa-briefcase"></i></a>
+                                <a href="{{ route('tables.edit', $table->id) }}" class="btn btn-info">Edit</a>
+                                <a href="{{ route('tables.show', $table->id) }}" class="btn btn-warning">Ver</a>
                             </td>
                         </tr>
                     @endforeach
@@ -49,9 +48,9 @@
         </div>
         <div class="card-footer">
             @if (isset($filters))
-                {!! $users->appends($filters)->links() !!}
+                {!! $tables->appends($filters)->links() !!}
             @else
-                {!! $users->links() !!}
+                {!! $tables->links() !!}
             @endif
         </div>
     </div>

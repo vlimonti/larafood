@@ -36,7 +36,8 @@
                             <td style="width=10px;">
                                 <a href="{{ route('permissions.edit', $permission->id) }}" class="btn btn-info">Edit</a>
                                 <a href="{{ route('permissions.show', $permission->id) }}" class="btn btn-warning">Ver</a>
-                                <a href="{{ route('permissions.profiles', $permission->id) }}" class="btn btn-info"><i class="fas fa-users"></i></a>
+                                <a href="{{ route('permissions.profiles', $permission->id) }}" class="btn btn-info" title="Perfis"><i class="fas fa-users"></i></a>
+                                <a href="{{ route('permissions.roles', $permission->id) }}" class="btn btn-warning" title="Funções"><i class="fas fa-briefcase"></i></a>
                             </td>
                         </tr>
                     @endforeach
