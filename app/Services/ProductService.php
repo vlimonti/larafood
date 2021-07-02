@@ -24,8 +24,8 @@ class ProductService
         return $this->productRepository->getProductsByTenantId($tenant->id, $categories);
     }
 
-    public function getProductByUrl(string $url)
+    public function getProductByUuid(string $uuid)
     {
-        return $this->productRepository->getProductByUrl($url);
+        return $this->productRepository->getProductByUuid($uuid);
     }
 }

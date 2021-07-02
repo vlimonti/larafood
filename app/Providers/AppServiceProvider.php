@@ -4,14 +4,18 @@ namespace App\Providers;
 
 use App\Models\{
     Category,
+    Client,
     Plan,
     Product,
+    Tables,
     Tenant
 };
 use App\Observers\{
     CategoryObserver,
+    ClientObserver,
     PlanObserver,
     ProductObserver,
+    TableObserver,
     TenantObserver
 };
 use Illuminate\Support\Facades\Schema;
@@ -41,5 +45,7 @@ class AppServiceProvider extends ServiceProvider
         Tenant::observe(TenantObserver::class);
         Category::observe(CategoryObserver::class);
         Product::observe(ProductObserver::class);
+        Client::observe(ClientObserver::class);
+        Tables::observe(TableObserver::class);
     }
 }
