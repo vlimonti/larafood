@@ -1,32 +1,3 @@
-Skip to content
-Search or jump to…
-
-Pull requests
-Issues
-Marketplace
-Explore
- 
-@vlimonti 
-laravel
-/
-laravel
-4.7k
-65.8k21.1k
-Code
-Pull requests
-1
-Actions
-Security
-Insights
-laravel/public/index.php /
-@taylorotwell
-taylorotwell update wording
-Latest commit 9c5e6f9 on 15 Mar
- History
- 11 contributors
-@taylorotwell@BrandonSurowiec@pespantelis@mikelbring@amigo-rich@jonathanmarvens@settermjd@jpkleemans@diogoazevedos@coderabbi@bencorlett
-55 lines (44 sloc)  1.69 KB
-  
 <?php
 
 use Illuminate\Contracts\Http\Kernel;
